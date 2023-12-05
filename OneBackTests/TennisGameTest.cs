@@ -20,8 +20,16 @@ public class TennisGameTest
     [Test]
     public void all_to_lookup()
     {
-        _tennisGame.AddFirstPlayerScore();   
+        _tennisGame.AddFirstPlayerScore();
         ScoreShouldBe("fifteen love");
+    }
+
+    [Test]
+    public void lookup_to_all()
+    {
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        ScoreShouldBe("fifteen all");
     }
 
     private void ScoreShouldBe(string loveAll)
@@ -34,10 +42,12 @@ public class TennisGameTest
 public class TennisGame
 {
     private IState _currentState;
+    private Context _context;
 
     public TennisGame()
     {
-        _currentState =new AllState();
+        _context = new Context();
+        _currentState = new AllState(_context);
     }
 
     public string Score()
@@ -47,7 +57,14 @@ public class TennisGame
 
     public void AddFirstPlayerScore()
     {
+        _context.FirstPlayerScore++;
         _currentState = _currentState.AddFirstPlayerScore();
+    }
+
+    public void AddSecondPlayerScore()
+    {
+        _context.SecondPlayerScore++;
+        _currentState = _currentState.AddSecondPlayerScore();
     }
 }
 
@@ -55,30 +72,85 @@ public interface IState
 {
     string Score();
     IState AddFirstPlayerScore();
+    IState AddSecondPlayerScore();
 }
 
-public class AllState : IState
+public abstract class StateBase : IState
 {
-    public string Score()
+    protected Context _context;
+    protected Dictionary<int, string> _scoreLookup = new Dictionary<int, string>()
     {
-        return "love all";
+        {0, "love"},
+        {1, "fifteen"},
+        {2, "thirty"},
+        {3, "forty"}
+    };
+
+    public StateBase(Context context)
+    {
+        _context = context;
+    }
+    public abstract string Score();
+
+    public abstract IState AddFirstPlayerScore();
+
+    public abstract IState AddSecondPlayerScore();
+}
+
+public class Context
+{
+    public Context()
+    {
+        FirstPlayerScore = 0;
+        SecondPlayerScore = 0;
     }
 
-    public IState AddFirstPlayerScore()
+    public int FirstPlayerScore { get; set; }
+    public int SecondPlayerScore { get; set; }
+}
+
+public class AllState : StateBase
+{
+
+
+    public override string Score()
     {
-        return new LookupState();
+        return $"{_scoreLookup[_context.FirstPlayerScore]} all";
+    }
+
+    public override IState AddFirstPlayerScore()
+    {
+        return new LookupState(_context);
+    }
+
+    public override IState AddSecondPlayerScore()
+    {
+        return new LookupState(_context);
+    }
+
+    public AllState(Context context) : base(context)
+    {
     }
 }
 
-public class LookupState : IState
+public class LookupState : StateBase
 {
-    public string Score()
+    public override string Score()
     {
-        return "fifteen love";
+        return $"{_scoreLookup[_context.FirstPlayerScore]} {_scoreLookup[_context.SecondPlayerScore]}";
     }
 
-    public IState AddFirstPlayerScore()
+    public override IState AddFirstPlayerScore()
     {
-        throw new NotImplementedException();
+        return new AllState(_context);
+    }
+
+    public override IState AddSecondPlayerScore()
+    {
+        return new AllState(_context);
+    }
+
+    public LookupState(Context context) : base(context)
+    {
     }
 }
