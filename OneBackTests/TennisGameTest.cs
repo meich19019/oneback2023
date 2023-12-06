@@ -10,7 +10,7 @@ public class TennisGameTest
     [SetUp]
     public void Setup()
     {
-        _tennisGame = new TennisGame();
+        _tennisGame = new TennisGame("Eva", "Eric");
     }
 
     [Test]
@@ -70,6 +70,72 @@ public class TennisGameTest
         _tennisGame.AddSecondPlayerScore();
         ScoreShouldBe("deuce");
     }
+
+    [Test]
+    public void deuce_to_adv_second_player()
+    {
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        ScoreShouldBe("Eric adv");
+    }
+
+    [Test]
+    public void deuce_to_adv_first_player()
+    {
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        ScoreShouldBe("Eva adv");
+    }
+
+    [Test]
+    public void adv_to_win_first_player()
+    {
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        ScoreShouldBe("Eva win");
+    }
+
+    [Test]
+    public void adv_to_win_second_player()
+    {
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        ScoreShouldBe("Eric win");
+    }
+
+    [Test]
+    public void lookup_to_win_first_player()
+    {
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        _tennisGame.AddSecondPlayerScore();
+        _tennisGame.AddFirstPlayerScore();
+        ScoreShouldBe("Eva win");
+    }
+
 
     private void ScoreShouldBe(string loveAll)
     {

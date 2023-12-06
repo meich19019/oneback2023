@@ -32,6 +32,10 @@ public class LookupState : StateBase
 
             return new AllState(Context);
         }
+        if (Context.FirstPlayerScore == 4 || Context.SecondPlayerScore == 4)
+        {
+            return new WinState(Context);
+        }
         return new LookupState(Context);
     }
 }

@@ -1,23 +1,26 @@
 ﻿namespace OneBackComboTrainingWeb.Domain.Tennis;
 
-public class DeuceState : StateBase
+public class AdvState : StateBase
 {
-    public DeuceState(Context context) : base(context)
+    public AdvState(Context context) : base(context)
     {
+
     }
 
     public override string Score()
     {
-        return "deuce";
+        var advPlayer = GetAdvPlayer();
+        return $"{advPlayer} adv";
     }
+
 
     public override IState AddFirstPlayerScore()
     {
-        return new AdvState(Context);
+        return new WinState(Context);
     }
 
     public override IState AddSecondPlayerScore()
     {
-        return new AdvState(Context);
+        return new WinState(Context);
     }
 }

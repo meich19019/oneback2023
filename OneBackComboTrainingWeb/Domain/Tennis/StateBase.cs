@@ -20,4 +20,18 @@ public abstract class StateBase : IState
     public abstract IState AddFirstPlayerScore();
 
     public abstract IState AddSecondPlayerScore();
+    protected string GetAdvPlayer()
+    {
+        string advPlayer;
+        if (Context.FirstPlayerScore > Context.SecondPlayerScore)
+        {
+            advPlayer = Context.FirstPlayerName;
+        }
+        else
+        {
+            advPlayer = Context.SecondPlayerName;
+        }
+
+        return advPlayer;
+    }
 }

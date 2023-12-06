@@ -5,9 +5,9 @@ public class TennisGame
     private IState _currentState;
     private Context _context;
 
-    public TennisGame()
+    public TennisGame(string firstPlayerName, string secondPlayerName)
     {
-        _context = new Context();
+        _context = new Context(firstPlayerName, secondPlayerName);
         _currentState = new AllState(_context);
     }
 
