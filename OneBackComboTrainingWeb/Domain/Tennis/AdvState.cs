@@ -9,17 +9,12 @@ public class AdvState : StateBase
 
     public override string Score()
     {
-        var advPlayer = GetAdvPlayer();
+        var advPlayer = Context.GetAdvPlayer();
         return $"{advPlayer} adv";
     }
 
 
-    public override IState AddFirstPlayerScore()
-    {
-        return new WinState(Context);
-    }
-
-    public override IState AddSecondPlayerScore()
+    public override IState NextState()
     {
         return new WinState(Context);
     }

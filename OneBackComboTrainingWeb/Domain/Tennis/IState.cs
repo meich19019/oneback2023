@@ -3,6 +3,5 @@
 public interface IState
 {
     string Score();
-    IState AddFirstPlayerScore();
-    IState AddSecondPlayerScore();
+    IState NextState();
 }

@@ -12,12 +12,7 @@ public class AllState : StateBase
         return $"{ScoreLookup[Context.FirstPlayerScore]} all";
     }
 
-    public override IState AddFirstPlayerScore()
-    {
-        return new LookupState(Context);
-    }
-
-    public override IState AddSecondPlayerScore()
+    public override IState NextState()
     {
         return new LookupState(Context);
     }

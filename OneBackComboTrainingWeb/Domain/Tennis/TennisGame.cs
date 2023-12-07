@@ -3,7 +3,8 @@
 public class TennisGame
 {
     private IState _currentState;
-    private Context _context;
+    //private IState _currentState;
+    private readonly Context _context;
 
     public TennisGame(string firstPlayerName, string secondPlayerName)
     {
@@ -19,12 +20,12 @@ public class TennisGame
     public void AddFirstPlayerScore()
     {
         _context.FirstPlayerScore++;
-        _currentState = _currentState.AddFirstPlayerScore();
+        _currentState = _currentState.NextState();
     }
 
     public void AddSecondPlayerScore()
     {
         _context.SecondPlayerScore++;
-        _currentState = _currentState.AddSecondPlayerScore();
+        _currentState = _currentState.NextState();
     }
 }

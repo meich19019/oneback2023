@@ -14,4 +14,9 @@ public class Context
     public int SecondPlayerScore { get; set; }
     public string FirstPlayerName { get; set; }
     public string SecondPlayerName { get; set; }
+
+    public string GetAdvPlayer()
+    {
+        return FirstPlayerScore > SecondPlayerScore ? FirstPlayerName : SecondPlayerName;
+    }
 }

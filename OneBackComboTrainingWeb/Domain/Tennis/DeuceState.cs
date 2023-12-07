@@ -11,12 +11,7 @@ public class DeuceState : StateBase
         return "deuce";
     }
 
-    public override IState AddFirstPlayerScore()
-    {
-        return new AdvState(Context);
-    }
-
-    public override IState AddSecondPlayerScore()
+    public override IState NextState()
     {
         return new AdvState(Context);
     }

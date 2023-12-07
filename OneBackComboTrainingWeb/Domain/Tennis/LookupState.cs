@@ -11,17 +11,7 @@ public class LookupState : StateBase
         return $"{ScoreLookup[Context.FirstPlayerScore]} {ScoreLookup[Context.SecondPlayerScore]}";
     }
 
-    public override IState AddFirstPlayerScore()
-    {
-        return GetState();
-    }
-
-    public override IState AddSecondPlayerScore()
-    {
-        return GetState();
-    }
-
-    private IState GetState()
+    public override IState NextState()
     {
         if (Context.FirstPlayerScore == Context.SecondPlayerScore)
         {
@@ -36,6 +26,6 @@ public class LookupState : StateBase
         {
             return new WinState(Context);
         }
-        return new LookupState(Context);
+        return this;
     }
 }

@@ -8,17 +8,27 @@ public class WinState : StateBase
 
     public override string Score()
     {
-        var advPlayer = GetAdvPlayer();
+        var advPlayer = Context.GetAdvPlayer();
         return $"{advPlayer} win";
     }
 
-    public override IState AddFirstPlayerScore()
+    public override IState NextState()
     {
-        throw new NotImplementedException();
+        throw new TennisGameException();
+    }
+}
+
+public class TennisGameException : Exception
+{
+    public TennisGameException()
+    {
     }
 
-    public override IState AddSecondPlayerScore()
+    public TennisGameException(string? message) : base(message)
     {
-        throw new NotImplementedException();
+    }
+
+    public TennisGameException(string? message, Exception? innerException) : base(message, innerException)
+    {
     }
 }
