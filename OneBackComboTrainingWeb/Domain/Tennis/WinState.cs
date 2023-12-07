@@ -17,18 +17,3 @@ public class WinState : StateBase
         throw new TennisGameException();
     }
 }
-
-public class TennisGameException : Exception
-{
-    public TennisGameException()
-    {
-    }
-
-    public TennisGameException(string? message) : base(message)
-    {
-    }
-
-    public TennisGameException(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
-}
